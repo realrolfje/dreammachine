@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "software/Dream Machine",
+			"name": "Dream Machine"
+		}
+	],
+	"settings": {
+		"terminal.integrated.env.osx": {
+			"PATH": "/Users/rolf/.platformio/penv/bin:/Users/rolf/.platformio/penv:/Users/rolf/Applications/apache-maven-3.5.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin",
+			"PLATFORMIO_CALLER": "vscode"
+		}
+	}
+}
