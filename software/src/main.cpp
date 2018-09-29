@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <RTC.h>
+#include "RTC.h"
 
 const int RTC_CE   = 50;  // Chip Enable
 const int RTC_IO   = 51;  // Input/Output

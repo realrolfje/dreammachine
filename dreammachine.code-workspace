@@ -1,11 +1,11 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": "docs"
 		},
 		{
-			"path": "software/Dream Machine",
-			"name": "Dream Machine"
+			"path": "software",
+			"name": "software"
 		}
 	],
 	"settings": {
