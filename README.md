@@ -11,6 +11,7 @@ Next to the Sony Dream Machine, I have a Phillips Wake-up light. I am farily sen
 |--|--|
 | 06:30 | The Phillips Wake-up light starts it's 30 minute sunrise sequence. |
 | 06:50 | The Sony Dream Machine turns on the radio, gently nudging me to wake up. Usually this wakes me up and I listen to music and the news to start my day. |
+| 07:00 | The Wake-up light is at it's brightest. |
 | 07:05 | After the news, if I am still asleep, the Sony Dream Machine starts beeping. First gentle beeps, but slowly getting more persistant. |
 
 It is hard to find an alarm clock which combines all these functions, doesn't look all that ugly and is easy and obvious to operate. So here I am, building one myself as a side project.
