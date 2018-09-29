@@ -6,7 +6,7 @@ RTC::RTC(int cePin, int ioPin, int clkPin) {
     ds1302 = new DS1302(cePin, ioPin, clkPin);
 }
 
-void RTC::setTime(uint8_t year, uint8_t month, uint8_t day_of_month, 
+void RTC::setTime(uint16_t year, uint8_t month, uint8_t day_of_month, 
                      uint8_t hour, uint8_t minute, uint8_t second,
                      uint8_t day_of_week) {
     Time t(year, month, day_of_month, 
