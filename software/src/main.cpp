@@ -11,11 +11,6 @@ RTC realTimeClock = RTC(RTC_CE, RTC_IO, RTC_CLK);
 
 void setup() {
   Serial.begin(9600);
-
-//   rtc.writeProtect(false);
-//   rtc.halt(false);
-//   Time t(2019, 9, 29, 17, 03, 00, Time::kSunday);
-//   rtc.time(t);
 }
 
 void loop() {

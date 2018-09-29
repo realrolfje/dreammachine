@@ -8,7 +8,7 @@ RTC::RTC(int cePin, int ioPin, int clkPin) {
 
 void RTC::setTime(uint16_t year, uint8_t month, uint8_t day_of_month, 
                      uint8_t hour, uint8_t minute, uint8_t second,
-                     uint8_t day_of_week) {
+                     Time::Day day_of_week) {
     Time t(year, month, day_of_month, 
            hour, minute, second, 
            day_of_week);
@@ -37,13 +37,13 @@ String RTC::printTime() {
 
 String RTC::dayAsString(const Time::Day day) {
   switch (day) {
-    case Time::kSunday: return "Sunday";
-    case Time::kMonday: return "Monday";
-    case Time::kTuesday: return "Tuesday";
+    case Time::kSunday:    return "Sunday";
+    case Time::kMonday:    return "Monday";
+    case Time::kTuesday:   return "Tuesday";
     case Time::kWednesday: return "Wednesday";
-    case Time::kThursday: return "Thursday";
-    case Time::kFriday: return "Friday";
-    case Time::kSaturday: return "Saturday";
+    case Time::kThursday:  return "Thursday";
+    case Time::kFriday:    return "Friday";
+    case Time::kSaturday:  return "Saturday";
   }
   return "(unknown day)";
 }
