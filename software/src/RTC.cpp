@@ -2,7 +2,7 @@
 #include <DS1302.h>
 #include <Arduino.h>
 
-RTC::RTC(int cePin, int ioPin, int clkPin) {    
+RTC::RTC(int cePin, int ioPin, int clkPin) {
     ds1302 = new DS1302(cePin, ioPin, clkPin);
 }
 
