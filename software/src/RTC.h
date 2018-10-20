@@ -16,6 +16,7 @@ class RTC {
 
         void setTime(Time t);
         String printTime();
+        String printTime(Time t);
 
     private:
         DS1302* ds1302;

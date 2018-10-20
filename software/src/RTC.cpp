@@ -25,7 +25,10 @@ void RTC::setTime(Time t) {
 
 String RTC::printTime() {
   Time t = ds1302 -> time();
+  return printTime(t);
+}
 
+String RTC::printTime(Time t) {
   const String day = dayAsString(t.day);
   char buf[50];
   snprintf(buf, sizeof(buf), "%s %04d-%02d-%02d %02d:%02d:%02d",
