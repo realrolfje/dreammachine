@@ -35,6 +35,15 @@ void Display::showGrayScale() {
     } while (u8g -> nextPage());
 }
 
+void Display::displayTime(char* time) {
+    u8g -> setFont(u8g_font_fub35n);
+    u8g -> setFontPosTop();
+    u8g -> firstPage();
+    do {
+        u8g -> drawStr( 0, 0, time);
+    } while (u8g -> nextPage());
+}
+
 void Display::renderBitmap() {
     u8g -> firstPage();
     do {

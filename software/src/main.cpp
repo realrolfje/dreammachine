@@ -16,7 +16,8 @@ Display display = Display();
 void setup() {
   Serial.begin(9600);
   // display.showGrayScale();
-  display.renderBitmap();
+  // display.renderBitmap();
+  display.displayTime("23:44");
 
   uint8_t shift = 4;
 
@@ -35,5 +36,12 @@ void setup() {
 void loop() {
     // Serial.print("RTC: "); Serial.println(realTimeClock.printTime());
     // Serial.print("DCF: "); Serial.println(dcf77Clock.printTime());
-    delay(1000);
+  display.displayTime("21:44");
+  delay(1000);
+  display.displayTime("22 45");
+  delay(1000);
+  display.displayTime("23:46");
+  delay(1000);
+  display.displayTime("24 47");
+  delay(1000);
 }
