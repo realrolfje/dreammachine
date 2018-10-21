@@ -8,6 +8,9 @@ class Display {
     public:
         Display();
 
+        void showGrayScale();
+        void renderBitmap();
+
     private:
         U8GLIB_NHD27OLED_GR* u8g;
 };
