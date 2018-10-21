@@ -8,11 +8,11 @@ const int u8_cs    = 51; // Chip select
 const int u8_dc    = 52; // Data/Command selector
 const int u8_reset = 53; // Reset
 
-const uint8_t V[4][2] = {
-   {0b01000000, 0b00000001},
-   {0b10010000, 0b00000110},
-   {0b11100100, 0b00011011},
-   {0b11111001, 0b01101111}
+const uint8_t V[] PROGMEM = {
+   0b01000000, 0b00000001,
+   0b10010000, 0b00000110,
+   0b11100100, 0b00011011,
+   0b11111001, 0b01101111
 };
 
 Display::Display() {
@@ -40,7 +40,9 @@ void Display::renderBitmap() {
     do {
         for(uint8_t y = 0; y < 4; y++) {
             for(uint8_t x = 0; x < 2; x++) {
-                uint8_t pixels = V[y][x];
+//                uint8_t pixels = V[y*2 + x];
+                uint8_t pixels = pgm_read_byte(V + y*2 + x);
+
                 for(uint8_t shift = 4; shift > 0; shift--){
                     uint8_t thispixel = (pixels >> ((shift-1)*2)) & 0b00000011;
                     u8g -> setColorIndex(thispixel);
