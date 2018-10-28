@@ -22,6 +22,7 @@ Display::Display() {
   u8g -> setFontRefHeightExtendedText();
   u8g -> setDefaultForegroundColor();
   u8g -> setFontPosTop();
+  u8g -> setContrast(255);
 }
 
 void Display::showGrayScale() {
