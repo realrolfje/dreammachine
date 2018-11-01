@@ -17,7 +17,7 @@ uint8_t sample_input_pin() {
 void output_handler(const Clock::time_t &decoded_time) {
     Clock::clock_state_t state = DCF77_Clock::get_clock_state();
     if (state == Clock::locked) {
-        digitalWrite(dcf_output_pin, !digitalRead(dcf_input_pin));
+        digitalWrite(dcf_output_pin, !digitalRead(dcf_output_pin));
     }
 }
 
@@ -41,6 +41,26 @@ DCF::DCF(uint8_t input_pin, uint8_t output_pin) {
     DCF77_Clock::set_output_handler(output_handler);
 }
 
+String DCF::quality() {
+    uint8_t q = DCF77_Clock::get_overall_quality_factor();
+    return String(q, DEC);
+}
+
+String DCF::state() {
+    Clock::clock_state_t state = DCF77_Clock::get_clock_state();
+    
+    switch (state) {
+        case Clock::useless  : return "useless";  break;
+        case Clock::dirty    : return "dirty";    break;
+        case Clock::free     : return "free";     break;
+        case Clock::unlocked : return "unlocked"; break;
+        case Clock::locked   : return "locked";   break;
+        case Clock::synced   : return "synced";   break;
+        default:
+            break;
+    }
+    return "?";
+}
 
 String DCF::printTime(){
     return "nope";

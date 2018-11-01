@@ -36,14 +36,19 @@ void Display::showGrayScale() {
     } while (u8g -> nextPage());
 }
 
-void Display::displayTime(char* time) {
-    u8g -> setFont(u8g_font_fub35n);
+void Display::displayTime(char* time, char* test) {
+        u8g -> setFont(u8g_font_9x15);
     u8g -> setFontPosTop();
     u8g -> firstPage();
     do {
+        // https://github.com/olikraus/u8glib/wiki/fontsize
+//        u8g -> setFont(u8g_font_fub35n);
         u8g -> drawStr( 0, 0, time);
+    
+        u8g -> drawStr(0, 50, test);
     } while (u8g -> nextPage());
 }
+
 
 void Display::renderBitmap() {
     u8g -> firstPage();

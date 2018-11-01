@@ -22,12 +22,14 @@ void setup() {
 void loop() {
     // Serial.print("RTC: "); Serial.println(realTimeClock.printTime());
     // Serial.print("DCF: "); Serial.println(dcf77Clock.printTime());
-  display.displayTime("21:44");
-  delay(1000);
-  display.displayTime("22 45");
-  delay(1000);
-  display.displayTime("23:46");
-  delay(1000);
-  display.displayTime("24 47");
+
+  char quality[10];
+  dcf77Clock.quality().toCharArray(quality, sizeof(quality));
+
+  char state[20];
+  dcf77Clock.state().toCharArray(state, sizeof(state));
+
+  display.displayTime(quality, state);
+
   delay(1000);
 }

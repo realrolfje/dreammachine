@@ -10,7 +10,7 @@ class Display {
 
         void showGrayScale();
         void renderBitmap();
-        void displayTime(char* time);
+        void displayTime(char* time, char* test);
 
     private:
         U8GLIB_NHD27OLED_GR* u8g;
