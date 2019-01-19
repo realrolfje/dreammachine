@@ -11,38 +11,33 @@ uint8_t dcf_input_pin = 0;
 uint8_t dcf_output_pin = 0;
 
 uint8_t sample_input_pin() {
-    return digitalRead(dcf_input_pin);
+    bool signal = digitalRead(dcf_input_pin);
+    digitalWrite(13, signal);
+//    digitalWrite(dcf_output_pin, signal);
+    return signal;
 }
 
 void output_handler(const Clock::time_t &decoded_time) {
-    Clock::clock_state_t state = DCF77_Clock::get_clock_state();
-    if (state == Clock::locked) {
+//    Clock::clock_state_t state = DCF77_Clock::get_clock_state();
+//    if (state == Clock::locked) {
         digitalWrite(dcf_output_pin, !digitalRead(dcf_output_pin));
-    }
+//    }
 }
 
 DCF::DCF(uint8_t input_pin) {
     dcf_input_pin = input_pin;
 
     pinMode(dcf_input_pin, INPUT);
+    pinMode(13, OUTPUT);
+
     DCF77_Clock::setup();
     DCF77_Clock::set_input_provider(sample_input_pin);
-}
-
-DCF::DCF(uint8_t input_pin, uint8_t output_pin) {
-    dcf_input_pin = input_pin;
-
-    pinMode(dcf_input_pin, INPUT);
-    DCF77_Clock::setup();
-    DCF77_Clock::set_input_provider(sample_input_pin);
-
-    dcf_output_pin = output_pin;
-    pinMode(dcf_output_pin, OUTPUT);
-    DCF77_Clock::set_output_handler(output_handler);
 }
 
 String DCF::quality() {
     uint8_t q = DCF77_Clock::get_overall_quality_factor();
+
+
     return String(q, DEC);
 }
 
@@ -63,5 +58,10 @@ String DCF::state() {
 }
 
 String DCF::printTime(){
-    return "nope";
+    DCF77_Clock::debug();
+
+    // Clock::time_t time;
+    // DCF77_Clock::get_current_time(time);
+    // DCF77_Clock::print(time);
+    return "printed";
 }

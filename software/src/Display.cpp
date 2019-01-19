@@ -45,7 +45,7 @@ void Display::displayTime(char* time, char* test) {
 //        u8g -> setFont(u8g_font_fub35n);
         u8g -> drawStr( 0, 0, time);
     
-        u8g -> drawStr(0, 50, test);
+        u8g -> drawStr(0, 25, test);
     } while (u8g -> nextPage());
 }
 
