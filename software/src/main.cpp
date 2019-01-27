@@ -19,10 +19,22 @@ Light light = Light();
 
 void setup() {
   Serial.begin(9600);
-  light.fullWhite();
+  Serial.println("Starting");
+
 }
 
 void loop() {
+  Serial.println("loop");
+  light.off();
+  delay(1000);
+
+  for(byte t=0; t < SUNRISE_STEPS; t++) {
+    Serial.print(t);
+    Serial.print(" ");
+    
+    light.showSkyAt(t);
+    delay(25);
+  }
     // Serial.print("RTC: "); Serial.println(realTimeClock.printTime());
     // Serial.print("DCF: "); Serial.println(dcf77Clock.printTime());
 
