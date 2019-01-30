@@ -51,14 +51,15 @@ class Light {
                     // There is a bug in the interpolation which makes the strip "flash"
                   {   0,    0,   0 },
                   {  10,    0,   0 },
-                  {   0,  10,    0 },
-                  {   0,   0,   10 },
+                  {   0,   10,   0 },
+                  {   0,    0,  10 },
                   {   0,    0,   0 }
   };
 
   byte getInterpolatedZAt(byte x, byte y);
   byte getDecimatedIndex(byte arraysize, byte targetsize, byte i);
   byte interpolate(int x1, int z1, int x2, int z2, byte x);
+  uint32_t interpolate(int x1, uint32_t z1, int x2, uint32_t z2, byte x);
 };
 
 #endif  // LIGHT_H

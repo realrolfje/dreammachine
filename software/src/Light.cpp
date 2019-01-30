@@ -166,3 +166,26 @@ byte Light::interpolate(int x1, int z1, int x2, int z2, byte x) {
 
   return z;
 }
+
+/*
+ * Given two color coordinates (x1, color1) and (x2, color22) and
+ * an x between x1 and x2, calculate the color for x.
+ */
+uint32_t Light::interpolate(int x1, uint32_t color1, int x2, uint32_t color2, byte x) {
+  byte w1 = color1 >> 24;
+  byte r1 = color1 >> 16;
+  byte g1 = color1 >> 8;
+  byte b1 = color1;
+
+  byte w2 = color2 >> 24;
+  byte r2 = color2 >> 16;
+  byte g2 = color2 >> 8;
+  byte b2 = color2;
+
+  byte w = interpolate(x1, w1, x2, w2, x);
+  byte r = interpolate(x1, r1, x2, r2, x);
+  byte g = interpolate(x1, g1, x2, g2, x);
+  byte b = interpolate(x1, b1, x2, b2, x);
+
+  return strip.Color(r, g, b, w);
+}
