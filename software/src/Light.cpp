@@ -3,14 +3,13 @@
 Light::Light() {}
 
 void Light::setup(){
-  strip.setBrightness(255);
   strip.begin();
   off();
 }
 
 void Light::off() {
   for (uint16_t i = 0; i < strip.numPixels(); i++) {
-    uint32_t c = strip.Color(0, 0, 0, 0);
+    uint32_t c = Color(0, 0, 0, 0);
     strip.setPixelColor(i, c);
   }
   strip.show();
@@ -19,7 +18,7 @@ void Light::off() {
 void Light::fullWhite() {
   for (uint16_t i = 0; i < strip.numPixels(); i++) {
     //    uint32_t c = getcolor(i * step);
-    uint32_t c = strip.Color(0, 0, 0, 255);
+    uint32_t c = Color(0, 0, 0, 255);
     strip.setPixelColor(i, c);
   }
   strip.show();
@@ -27,32 +26,30 @@ void Light::fullWhite() {
 
 void Light::test() {
 uint32_t c;
-c = strip.Color(50, 0, 0, 0  ); strip.setPixelColor(0, c);
-c = strip.Color(0, 0, 0, 25 ); strip.setPixelColor(1, c);
-c = strip.Color(0, 0, 0, 51 ); strip.setPixelColor(2, c);
-c = strip.Color(0, 0, 0, 76 ); strip.setPixelColor(3, c);
-c = strip.Color(0, 0, 0, 101); strip.setPixelColor(4, c);
-c = strip.Color(0, 0, 0, 127); strip.setPixelColor(5, c);
-c = strip.Color(0, 0, 0, 153); strip.setPixelColor(6, c);
-c = strip.Color(0, 0, 0, 178); strip.setPixelColor(7, c);
-c = strip.Color(0, 0, 0, 204); strip.setPixelColor(8, c);
-c = strip.Color(0, 0, 0, 229); strip.setPixelColor(9, c);
+c = Color(50, 0, 0, 0  ); strip.setPixelColor(0, c);
+c = Color(0, 0, 0, 25 ); strip.setPixelColor(1, c);
+c = Color(0, 0, 0, 51 ); strip.setPixelColor(2, c);
+c = Color(0, 0, 0, 76 ); strip.setPixelColor(3, c);
+c = Color(0, 0, 0, 101); strip.setPixelColor(4, c);
+c = Color(0, 0, 0, 127); strip.setPixelColor(5, c);
+c = Color(0, 0, 0, 153); strip.setPixelColor(6, c);
+c = Color(0, 0, 0, 178); strip.setPixelColor(7, c);
+c = Color(0, 0, 0, 204); strip.setPixelColor(8, c);
+c = Color(0, 0, 0, 229); strip.setPixelColor(9, c);
   strip.show();
 }
 
 
 void Light::showSkyAt(byte time){
   for (uint16_t i = 0; i < strip.numPixels(); i++) {
-    uint8_t b = getInterpolatedZAt(i,time);
-    uint32_t c = strip.Color(0, 0, 0, b);
+    uint32_t c = getInterpolatedColorAt(i,time);
     
-    // Serial.print("c = strip.Color(50, 0, 0, ");
+    // Serial.print("c = Color(50, 0, 0, ");
     // Serial.print(b);
     // Serial.print("); strip.setPixelColor(");
     // Serial.print(i);
     // Serial.println(", c);");
 
-    // strip.setPixelColor(i, strip.Color(0, 0, 0, c));
     strip.setPixelColor(i, c);
   }
   strip.show();
@@ -70,7 +67,7 @@ uint32_t Light::getcolor(byte index) {
   uint8_t b = 0;
   uint8_t w = round(255 * (1 + cos(double(PI / 255) * index - 100)) / 2);
 
-  return strip.Color(index, index, index, index);
+  return Color(index, index, index, index);
 }
 
 // ------------------ Migrated from Arduino playground to get interpolation working
@@ -81,7 +78,7 @@ uint32_t Light::getcolor(byte index) {
  * Given an x and y in the target space, it lineary interpolates
  * the fyx[][] array to calculate z.
  */
-byte Light::getInterpolatedZAt(byte x, byte y) {
+uint32_t Light::getInterpolatedColorAt(byte x, byte y) {
   // Serial.print("x="); Serial.println(x);
   // Serial.print("y="); Serial.println(y);
 
@@ -105,36 +102,36 @@ byte Light::getInterpolatedZAt(byte x, byte y) {
   // Serial.print("xi="); Serial.println(xi);
   // Serial.print("xj="); Serial.println(xj);
 
-  // Interpolate z on yi, x between xi and xj
-  byte zyixi = fyx[yi][xi];
-  byte zyixj = fyx[yi][xj];
+  // Interpolate color on yi, x between xi and xj
+  uint32_t coloryixi = fyx[yi][xi];
+  uint32_t coloryixj = fyx[yi][xj];
 
-  // Serial.print("zyixi="); Serial.println(zyixi);
-  // Serial.print("zyixj="); Serial.println(zyixj);
+  // Serial.print("coloryixi="); Serial.println(coloryixi);
+  // Serial.print("coloryixj="); Serial.println(coloryixj);
 
-  byte zyix = interpolate(xi*targetXStepSize, zyixi, xj*targetXStepSize, zyixj, x);
+  uint32_t coloryix = interpolate(xi*targetXStepSize, coloryixi, xj*targetXStepSize, coloryixj, x);
 
-  // Serial.print("zyix="); Serial.println(zyix);
+  // Serial.print("coloryix="); Serial.println(coloryix);
 
-  // Interpolate z on xj
-  byte zyjxi = fyx[yj][xi];
-  byte zyjxj = fyx[yj][xj];
+  // Interpolate color on xj
+  uint32_t coloryjxi = fyx[yj][xi];
+  uint32_t coloryjxj = fyx[yj][xj];
 
-  // Serial.print("zyjxi="); Serial.println(zyjxi);
-  // Serial.print("zyjxj="); Serial.println(zyjxj);
+  // Serial.print("coloryjxi="); Serial.println(coloryjxi);
+  // Serial.print("coloryjxj="); Serial.println(coloryjxj);
 
-  byte zyjx = interpolate(xi*targetXStepSize, zyjxi, xj*targetXStepSize, zyjxj, x);
+  uint32_t coloryjx = interpolate(xi*targetXStepSize, coloryjxi, xj*targetXStepSize, coloryjxj, x);
 
-  // Serial.print("zyjx="); Serial.println(zyix);
+  // Serial.print("coloryjx="); Serial.println(coloryix);
 
   // interpolate z on y between xi and xj
-  byte zyx = interpolate(yi*targetYStepSize, zyix, yj*targetYStepSize, zyjx, y);
+  uint32_t coloryx = interpolate(yi*targetYStepSize, coloryix, yj*targetYStepSize, coloryjx, y);
 
   // Serial.print("Interpolated light at ("); Serial.print(x);
   // Serial.print(","); Serial.print(y);
-  // Serial.print(")="); Serial.println(zyx);
+  // Serial.print(")="); Serial.println(coloryx);
 
-  return zyx;  
+  return coloryx;  
 }
 
 /*
@@ -187,5 +184,6 @@ uint32_t Light::interpolate(int x1, uint32_t color1, int x2, uint32_t color2, by
   byte g = interpolate(x1, g1, x2, g2, x);
   byte b = interpolate(x1, b1, x2, b2, x);
 
-  return strip.Color(r, g, b, w);
+  return Color(r, g, b, w);
 }
+
