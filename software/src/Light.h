@@ -7,7 +7,7 @@
 #define NEOPIXEL_PIN 8
 
 #define NUM_LEDS 60
-#define SUNRISE_STEPS 30
+#define SUNRISE_STEPS 200
 
 
 class Light {
@@ -18,6 +18,7 @@ class Light {
   void showSkyAt(byte time);
   void off();
   void fullWhite();
+  void test();
 
  private:
   void chase(uint32_t c);
@@ -30,7 +31,7 @@ class Light {
   static const byte targetXArraySize = NUM_LEDS;
   static const byte targetXStepSize = targetXArraySize / (sourceXArraySize - 1);
 
-  static const byte sourceYArraySize = 3;
+  static const byte sourceYArraySize = 5;
   static const byte targetYArraySize = SUNRISE_STEPS;
   static const byte targetYStepSize = targetYArraySize / (sourceYArraySize - 1);
 
@@ -48,9 +49,11 @@ class Light {
    */
   const byte fyx[ sourceYArraySize][sourceXArraySize] = {
                     // There is a bug in the interpolation which makes the strip "flash"
-                  {  0, 0,0},
-                  { 0,0,254},
-                  {254,254,254}
+                  {   0,    0,   0 },
+                  {  10,    0,   0 },
+                  {   0,  10,    0 },
+                  {   0,   0,   10 },
+                  {   0,    0,   0 }
   };
 
   byte getInterpolatedZAt(byte x, byte y);
