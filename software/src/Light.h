@@ -7,6 +7,8 @@
 #define NEOPIXEL_PIN 8
 
 #define NUM_LEDS 60
+#define NUM_LED_ROWS 6
+#define NUM_LEDS_PER_ROW NUM_LEDS/NUM_LED_ROWS
 #define SUNRISE_STEPS 255
 
 const static uint32_t Color(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
@@ -31,10 +33,10 @@ class Light {
   // working
 
   static const byte sourceXArraySize = 3;
-  static const byte targetXArraySize = NUM_LEDS;
+  static const byte targetXArraySize = NUM_LEDS_PER_ROW;
   static const byte targetXStepSize = targetXArraySize / (sourceXArraySize - 1);
 
-  static const byte sourceYArraySize = 6;
+  static const byte sourceYArraySize = 7;
   static const byte targetYArraySize = SUNRISE_STEPS;
   static const byte targetYStepSize = targetYArraySize / (sourceYArraySize - 1);
 
@@ -51,13 +53,14 @@ class Light {
    * the last row is the "sun up" color set.
    */
   const uint32_t fyx[ sourceYArraySize][sourceXArraySize] = {
-                    // There is a bug in the interpolation which makes the strip "flash"
-                  {   Color(0,0,0,0),    Color(0,0,0,0),   Color(0,0,0,0) },
-                  {  Color(50,0,0,0),    Color(30,5,5,0),   Color(30,5,10,0) },
-                  {   Color(50,20,10,5),   Color(40,10,0,2),   Color(40,10,20,1) },
-                  {   Color(80,20,30,40),  Color(50,30,30,20),  Color(40,20,30,10) },
-                  {   Color(10,0,30,80),  Color(10,0,30,80),  Color(10,0,30,80) },
-                  {   Color(0,0,0,0),    Color(0,0,0,0),   Color(0,0,0,0) }
+    // Bottom                Middle                  Top
+    {Color(  0,  0,  0,  0), Color(  0,  0,  0,  0), Color(  0,  0,  0,  0)}, // t = 0
+    {Color( 12,  2,  1,  0), Color(  2,  0,  1,  0), Color(  0,  0,  0,  0)}, // t = 1
+    {Color (50, 20, 10,  0), Color( 40,  9,  2,  0), Color(  5, 10, 20,  0)}, // t = 2
+    {Color(130, 89, 30,  0), Color(100, 50, 10,  0), Color( 36, 33, 50,  0)}, // t = 3
+    {Color(200,185, 70,  0), Color(180,120, 40,  0), Color(103, 99, 80,  0)}, // t = 4
+    {Color(242,255,100, 50), Color(240,230,110, 50), Color(242,255,100, 50)}, // t = 5
+    {Color(242,255,100,255), Color(242,255,150,255), Color(242,255,100,255)}, // t = 6
   };
 
   uint32_t getInterpolatedColorAt(byte x, byte y);

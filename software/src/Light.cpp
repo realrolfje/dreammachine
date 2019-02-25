@@ -25,33 +25,55 @@ void Light::fullWhite() {
 }
 
 void Light::test() {
-uint32_t c;
-c = Color(50, 0, 0, 0  ); strip.setPixelColor(0, c);
-c = Color(0, 0, 0, 25 ); strip.setPixelColor(1, c);
-c = Color(0, 0, 0, 51 ); strip.setPixelColor(2, c);
-c = Color(0, 0, 0, 76 ); strip.setPixelColor(3, c);
-c = Color(0, 0, 0, 101); strip.setPixelColor(4, c);
-c = Color(0, 0, 0, 127); strip.setPixelColor(5, c);
-c = Color(0, 0, 0, 153); strip.setPixelColor(6, c);
-c = Color(0, 0, 0, 178); strip.setPixelColor(7, c);
-c = Color(0, 0, 0, 204); strip.setPixelColor(8, c);
-c = Color(0, 0, 0, 229); strip.setPixelColor(9, c);
-  strip.show();
+  byte x1 = 10;
+  byte y1 = 5;
+
+  byte x2 = 100;
+  byte y2 = 105;
+
+  for (int x=0; x <= 255; x++){
+    byte y = interpolate(x1,y1, x2, y2, x);
+
+    Serial.print(x1); Serial.print(";");
+    Serial.print(y1); Serial.print(";");
+    Serial.print(x2); Serial.print(";");
+    Serial.print(y2); Serial.print(";");
+    Serial.print(x); Serial.print(";");
+    Serial.println(y);
+
+  }
 }
 
 
 void Light::showSkyAt(byte time){
-  for (uint16_t i = 0; i < strip.numPixels(); i++) {
+  for (uint16_t i=0; i < NUM_LEDS_PER_ROW; i++) {
     uint32_t c = getInterpolatedColorAt(i,time);
-    
-    // Serial.print("c = Color(50, 0, 0, ");
-    // Serial.print(b);
-    // Serial.print("); strip.setPixelColor(");
-    // Serial.print(i);
-    // Serial.println(", c);");
 
-    strip.setPixelColor(i, c);
+    /*
+     * The LEDs are mounted in a zig-zag pattern,
+     * the first row running bottom-to-top, the next
+     * row running top-to-bottom, etc.
+     */
+    for (uint16_t j=0; j< NUM_LED_ROWS; j++) {
+      if (j % 2) {
+        strip.setPixelColor((j * NUM_LEDS_PER_ROW) + (NUM_LEDS_PER_ROW - i -1), c);
+      } else {
+        strip.setPixelColor(j * NUM_LEDS_PER_ROW + i, c);
+      }
+    }
   }
+
+  // for (uint16_t i = 0; i < strip.numPixels(); i++) {
+  //   uint32_t c = getInterpolatedColorAt(i,time);
+    
+  //   // Serial.print("c = Color(50, 0, 0, ");
+  //   // Serial.print(b);
+  //   // Serial.print("); strip.setPixelColor(");
+  //   // Serial.print(i);
+  //   // Serial.println(", c);");
+
+  //   strip.setPixelColor(i, c);
+  // }
   strip.show();
 }
 
@@ -151,7 +173,8 @@ byte Light::getDecimatedIndex(byte arraysize, byte targetsize, byte i) {
  */
 byte Light::interpolate(int x1, int z1, int x2, int z2, byte x) {
   float zf = z1 + float(x - x1) * (z2 - z1) / (x2 - x1);
-  byte z = byte(round(zf));
+
+  byte z = byte(round(constrain(zf,0,255)));
 
   // Serial.print("Interpolate: (");
   // Serial.print(x1);  Serial.print(",");  Serial.print(z1);

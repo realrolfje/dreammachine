@@ -22,8 +22,13 @@ Light light = Light();
 #ifndef TEST
   void setup() {
     Serial.begin(9600);
-    Serial.println("Starting");
+    Serial.println("\n-------\nStarting");
     light.setup();
+
+    // light.test();
+
+    // while(true){};
+
   }
 
   void loop() {
@@ -35,7 +40,6 @@ Light light = Light();
       light.showSkyAt(t);
       delay(25);
     }
-    delay(1000);
 
       // Serial.print("RTC: "); Serial.println(realTimeClock.printTime());
       // Serial.print("DCF: "); Serial.println(dcf77Clock.printTime());
